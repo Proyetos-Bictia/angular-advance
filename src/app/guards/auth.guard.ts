@@ -10,7 +10,7 @@ import { UsuarioService } from '../services/usuario.service';
 export class AuthGuard implements CanActivate {
 
   constructor(private usuarioService: UsuarioService,
-      private router: Router) {
+    private router: Router) {
 
   }
 
@@ -20,8 +20,8 @@ export class AuthGuard implements CanActivate {
 
     return this.usuarioService.validarToken()
       .pipe(
-        tap(isAuth => !isAuth && this.router.navigate(['/login']) )
-      );
+        tap(isAuth => !isAuth && this.router.navigate(['/login']))
+      )
   }
 
 }
