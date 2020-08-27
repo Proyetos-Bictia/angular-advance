@@ -36,6 +36,14 @@ export class UsuarioService {
     return this.usuario.uid || ''
   }
 
+  get headers() {
+    return {
+      headers: {
+        'x-token': this.token
+      }
+    }
+  }
+
   googleInit() {
 
     return new Promise(resolve => {
@@ -98,11 +106,7 @@ export class UsuarioService {
       role: this.usuario.role
     }
 
-    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
-      headers: {
-        'x-token': this.token
-      }
-    })
+    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, this.headers)
   }
 
   loginUsuario(formData: LoginForm) {
@@ -119,6 +123,24 @@ export class UsuarioService {
         localStorage.setItem('token', resp.message)
       })
     );
+  }
+
+  cargarUsuarios(desde: number = 0) {
+    const url = `${base_url}/usuarios?desde=${desde}`
+    return this.http.get(url, this.headers)
+      .pipe(
+        map((item: any) => item.message)
+      )
+  }
+
+  eliminarUsuario(uid: string) {
+    const url = `${base_url}/usuarios/${uid}`
+    return this.http.delete(url, this.headers)
+  }
+
+  guardarUsuario(usuario: Usuario) {
+
+    return this.http.put(`${base_url}/usuarios/${usuario.uid}`, usuario, this.headers)
   }
 
 }
