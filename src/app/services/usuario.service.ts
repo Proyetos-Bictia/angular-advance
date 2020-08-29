@@ -82,7 +82,6 @@ export class UsuarioService {
     }).pipe(
       map((resp: any) => {
         const { email, google, nombre, role, uid, img = 'no' } = resp.message.usuario
-        console.log(resp.message)
         this.usuario = new Usuario(role, email, nombre, google, img, uid)
         localStorage.setItem('token', resp.message.token)
         return true
