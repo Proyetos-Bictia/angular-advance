@@ -24,7 +24,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     PagesRoutingModule,
-    AuthRoutingModule
+    AuthRoutingModule,
   ]
 })
 export class AppRoutingModule { }

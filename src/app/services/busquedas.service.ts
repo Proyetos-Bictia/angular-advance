@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
 
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 const base_url = environment.base_url;
 
@@ -28,6 +29,14 @@ export class BusquedasService {
 
   buscar(tipo: 'usuarios' | 'medicos' | 'hospitales', termino: string = '') {
     const url = `${base_url}/todo/coleccion/${tipo}/${termino}`;
+    return this.http.get<{ statusCode: number, error: string, message: any[] }>(url, this.headers)
+      .pipe(
+        map((item) => item.message)
+      )
+  }
+
+  busquedaGlobal(termino: string) {
+    const url = `${base_url}/todo/${termino}`;
     return this.http.get<{ statusCode: number, error: string, message: any[] }>(url, this.headers)
       .pipe(
         map((item) => item.message)

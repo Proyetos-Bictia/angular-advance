@@ -32,6 +32,10 @@ export class UsuarioService {
     return localStorage.getItem('token' || '');
   }
 
+  get role(): 'ADMIN_ROLE' | 'USER_ROLE' {
+    return this.usuario.role;
+  }
+
   get uid(): string {
     return this.usuario.uid || ''
   }
@@ -111,7 +115,7 @@ export class UsuarioService {
   loginUsuario(formData: LoginForm) {
     return this.http.post<any>(`${base_url}/login`, formData).pipe(
       tap((resp) => {
-        localStorage.setItem('token', resp.message)
+        localStorage.setItem('token', resp.message.token)
       })
     );
   }

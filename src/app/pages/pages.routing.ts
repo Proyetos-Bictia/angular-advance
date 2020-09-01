@@ -2,6 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { AuthGuard } from "../guards/auth.guard";
+import { AdminGuard } from "../guards/admin.guard";
 
 import { PagesComponent } from "./pages.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
@@ -16,6 +17,7 @@ import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component'
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
 import { MedicoComponent } from './mantenimientos/medicos/medico.component';
 import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 const routes: Routes = [
     {
@@ -76,6 +78,7 @@ const routes: Routes = [
             //Mantenimiento
             {
                 path: 'usuarios',
+                canActivate: [AdminGuard],
                 component: UsuariosComponent,
                 data: {
                     titulo: 'Mantenimiento de usuario'
@@ -100,6 +103,15 @@ const routes: Routes = [
                 component: MedicoComponent,
                 data: {
                     titulo: 'Mantenimiento de medicos'
+                }
+            },
+
+            //Busqueda
+            {
+                path: 'busqueda/:termino',
+                component: BusquedaComponent,
+                data: {
+                    titulo: 'Busquedas'
                 }
             },
         ]
